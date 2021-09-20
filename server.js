@@ -26,8 +26,25 @@ app.use(cookieSession({
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, './views'))
 
+// Variables set during startup of app
+app.locals.siteName = 'ROUX Meetups'
+
 // Use middleware to serve static files
 app.use(express.static(path.join(__dirname, './static')))
+
+// Global template variables using middleware
+app.use(async (req, res, next) => {
+  /* res.locals.someVariable = 'hello'
+  return next() */
+
+  try {
+    const names = await speakersService.getNames()
+    res.locals.speakerNames = names
+    console.log(res.locals)
+  } catch (err) {
+    return next(err)
+  }
+})
 
 // Middleware to listen for routes at root level
 app.use('/', routes({
