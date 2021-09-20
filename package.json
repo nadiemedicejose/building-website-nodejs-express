@@ -4,14 +4,16 @@
   "description": "Exercise files for my course Building a Website with Node.js and Express",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon --ignore feedack.json server.js"
   },
   "keywords": [],
   "author": "Daniel Khan",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^7.32.0",
-    "eslint-plugin-prettier": "^4.0.0"
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.12"
   },
   "dependencies": {
     "express": "^4.17.1"
