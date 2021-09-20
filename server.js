@@ -1,6 +1,8 @@
 const express = require('express')
 const path = require('path')
 
+const routes = require('./routes');
+
 const app = express()
 
 const port = 3000
@@ -11,15 +13,8 @@ app.set('views', path.join(__dirname, './views'))
 // Use middleware to serve static files
 app.use(express.static(path.join(__dirname, './static')))
 
-app.get('/', (req, res) => {
-  res.render('pages/index', { pageTitle: 'Welcome' })
-})
-
-app.get('/speakers', (req, res) => {
-  res.sendFile(path.join(__dirname, './static/speakers.html'))
-})
-
-
+// Middleware to listen for routes at root level
+app.use('/', routes())
 
 app.listen(port, () => {
   console.log(`Express server listening on port ${port}!`)
