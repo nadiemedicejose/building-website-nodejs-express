@@ -34,13 +34,10 @@ app.use(express.static(path.join(__dirname, './static')))
 
 // Global template variables using middleware
 app.use(async (req, res, next) => {
-  /* res.locals.someVariable = 'hello'
-  return next() */
-
   try {
     const names = await speakersService.getNames()
     res.locals.speakerNames = names
-    console.log(res.locals)
+    return next()
   } catch (err) {
     return next(err)
   }
