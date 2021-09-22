@@ -58,7 +58,7 @@ app.use((req, res, next) => {
 // Middleware for error handling
 app.use((err, req, res, next) => {
   res.locals.message = err.message
-  console.log(err)
+  console.error(err)
   const status = err.status || 500
   res.locals.status = status
   res.status(status)

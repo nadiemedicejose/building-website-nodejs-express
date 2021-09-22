@@ -9,7 +9,7 @@ module.exports = params => {
     try {
       const speakers = await speakersService.getList()
       const artwork = await speakersService.getAllArtwork()
-      res.render('layout', { pageTitle: 'Speakers', template: 'speakers', speakers, artwork })
+      return res.render('layout', { pageTitle: 'Speakers', template: 'speakers', speakers, artwork })
     } catch (err) {
       return next(err)
     }
