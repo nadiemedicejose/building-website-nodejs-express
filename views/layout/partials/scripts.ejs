@@ -13,4 +13,13 @@
   integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
   crossorigin="anonymous"
 ></script>
-<script src="/js/pixgrid.js"></script>
+
+<!-- When artwork is present, load pixgrid.js -->
+<% if (locals.artwork) { %>
+  <script src="/js/pixgrid.js"></script>
+<% }
+   
+  //  When feedback is requested, load feedback.js
+   if (locals.feedback) { %>
+  <script src="/js/feedback.js"></script>
+<% } %>
