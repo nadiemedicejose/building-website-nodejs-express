@@ -13,11 +13,15 @@ module.exports = params => {
       const errors = req.session.feedback
         ? req.session.feedback.errors
         : false
+
+      const successMessage = req.session.feedback
+        ? req.session.feedback.message
+        : false
       
       // After stored errors, reset the state
       req.session.feedback = {}
 
-      return res.render('layout', { pageTitle: 'Feedback', template: 'feedback', feedback, errors })
+      return res.render('layout', { pageTitle: 'Feedback', template: 'feedback', feedback, errors, successMessage })
     } catch (err) {
       return next(err)
     }
@@ -49,7 +53,7 @@ module.exports = params => {
       .escape()
       .withMessage('A message is required')
     ],
-    (req, res) => {
+    async (req, res) => {
       const errors = validationResult(req)
 
       if ( !errors.isEmpty() ) {
@@ -59,7 +63,13 @@ module.exports = params => {
         return res.redirect('/feedback')
       }
 
-      return res.send('Feedback from posted')
+      const { name, email, title, message } = req.body
+      await feedbackService.addEntry(name, email, title, message)
+      req.session.feedback = {
+        message: 'Thank you for your feedback!'
+      }
+
+      return res.redirect('/feedback')
   })
   
   return router
